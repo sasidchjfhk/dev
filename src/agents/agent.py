@@ -161,7 +161,7 @@ class Agent:
             args = item["args"]
             reply = item["reply"]
 
-            self.project_manager.add_message_from_devika(project_name, reply)
+            self.project_manager.add_message_from_Swea(project_name, reply)
 
             if function == "git_clone":
                 url = args["url"]
@@ -180,7 +180,7 @@ class Agent:
 
                 #asyncio.run(self.open_page(project_name, pdf_download_url))
 
-                self.project_manager.add_message_from_devika(project_name, response)
+                self.project_manager.add_message_from_Swea(project_name, response)
 
             elif function == "browser_interaction":
                 user_prompt = args["user_prompt"]
@@ -210,7 +210,7 @@ class Agent:
         """
         new_message = self.project_manager.new_message()
         new_message['message'] = prompt
-        new_message['from_devika'] = False
+        new_message['from_Swea'] = False
         self.project_manager.add_message_from_user(project_name, new_message['message'])
 
         os_system = platform.platform()
@@ -222,7 +222,7 @@ class Agent:
 
         response, action = self.action.execute(conversation, project_name)
 
-        self.project_manager.add_message_from_devika(project_name, response)
+        self.project_manager.add_message_from_Swea(project_name, response)
 
         print("\naction :: ", action, '\n')
 
@@ -232,7 +232,7 @@ class Agent:
                 code_markdown=code_markdown,
                 project_name=project_name
             )
-            self.project_manager.add_message_from_devika(project_name, response)
+            self.project_manager.add_message_from_Swea(project_name, response)
 
         elif action == "run":
             project_path = self.project_manager.get_project_path(project_name)
@@ -254,7 +254,7 @@ class Agent:
             }
             response = json.dumps(response, indent=4)
 
-            self.project_manager.add_message_from_devika(project_name, response)
+            self.project_manager.add_message_from_Swea(project_name, response)
 
         elif action == "feature":
             code = self.feature.execute(
@@ -290,7 +290,7 @@ class Agent:
 
             #asyncio.run(self.open_page(project_name, pdf_download_url))
 
-            self.project_manager.add_message_from_devika(project_name, response)
+            self.project_manager.add_message_from_Swea(project_name, response)
 
         self.agent_state.set_agent_active(project_name, False)
         self.agent_state.set_agent_completed(project_name, True)
@@ -313,9 +313,9 @@ class Agent:
         plans = planner_response["plans"]
         summary = planner_response["summary"]
 
-        self.project_manager.add_message_from_devika(project_name, reply)
-        self.project_manager.add_message_from_devika(project_name, json.dumps(plans, indent=4))
-        # self.project_manager.add_message_from_devika(project_name, f"In summary: {summary}")
+        self.project_manager.add_message_from_Swea(project_name, reply)
+        self.project_manager.add_message_from_Swea(project_name, json.dumps(plans, indent=4))
+        # self.project_manager.add_message_from_Swea(project_name, f"In summary: {summary}")
 
         self.update_contextual_keywords(focus)
         print("\ncontext_keywords :: ", self.collected_context_keywords, '\n')
@@ -335,13 +335,13 @@ class Agent:
         ask_user = research["ask_user"]
 
         if (queries and len(queries) > 0) or ask_user != "":
-            self.project_manager.add_message_from_devika(
+            self.project_manager.add_message_from_Swea(
                 project_name,
                 f"I am browsing the web to research the following queries: {queries_combined}."
                 f"\n If I need anything, I will make sure to ask you."
             )
         if not queries and len(queries) == 0:
-            self.project_manager.add_message_from_devika(
+            self.project_manager.add_message_from_Swea(
                 project_name,
                 "I think I can proceed without searching the web."
             )
@@ -349,7 +349,7 @@ class Agent:
         ask_user_prompt = "Nothing from the user."
 
         if ask_user != "" and ask_user is not None:
-            self.project_manager.add_message_from_devika(project_name, ask_user)
+            self.project_manager.add_message_from_Swea(project_name, ask_user)
             self.agent_state.set_agent_active(project_name, False)
             got_user_query = False
 
@@ -363,7 +363,7 @@ class Agent:
                 if latest_message_from_user and validate_last_message_is_from_user:
                     ask_user_prompt = latest_message_from_user["message"]
                     got_user_query = True
-                    self.project_manager.add_message_from_devika(project_name, "Thanks! 🙌")
+                    self.project_manager.add_message_from_Swea(project_name, "Thanks! 🙌")
                 time.sleep(5)
 
         self.agent_state.set_agent_active(project_name, True)
@@ -386,7 +386,7 @@ class Agent:
 
         self.agent_state.set_agent_active(project_name, False)
         self.agent_state.set_agent_completed(project_name, True)
-        self.project_manager.add_message_from_devika(
+        self.project_manager.add_message_from_Swea(
             project_name,
             "I have completed the my task. \n"
             "if you would like me to do anything else, please let me know. \n"

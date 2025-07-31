@@ -1,7 +1,4 @@
-"""
-    DO NOT REARRANGE THE ORDER OF THE FUNCTION CALLS AND VARIABLE DECLARATIONS
-    AS IT MAY CAUSE IMPORT ERRORS AND OTHER ISSUES
-"""
+
 from gevent import monkey
 monkey.patch_all()
 from src.init import init_devika
@@ -243,5 +240,5 @@ def status():
     return jsonify({"status": "server is running!"})
 
 if __name__ == "__main__":
-    logger.info("Devika is up and running!")
+    logger.info("Swea is up and running!")
     socketio.run(app, debug=False, port=1337, host="0.0.0.0")

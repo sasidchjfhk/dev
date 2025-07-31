@@ -19,6 +19,15 @@ class ProjectManager:
         config = Config()
         sqlite_path = config.get_sqlite_db()
         self.project_path = config.get_projects_dir()
+        
+        # Create necessary directories if they don't exist
+        import os
+        sqlite_dir = os.path.dirname(sqlite_path)
+        if sqlite_dir and not os.path.exists(sqlite_dir):
+            os.makedirs(sqlite_dir, exist_ok=True)
+        if not os.path.exists(self.project_path):
+            os.makedirs(self.project_path, exist_ok=True)
+            
         self.engine = create_engine(f"sqlite:///{sqlite_path}")
         SQLModel.metadata.create_all(self.engine)
 
